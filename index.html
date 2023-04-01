@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Random password generator</title>
+    </head>
+    <body>
+        
+        <link rel="stylesheet" href="style.css">
+        <div class="boxes">
+            <input class="checkbox" type="checkbox" id="passwordcb">
+            <h2>Generate password</h2>
+        </div>
+        <div class="boxes">
+            <input class="checkbox" type="checkbox" id="randname">
+            <h2>Generate random name</h2>
+        </div>
+        
+        <div id="div1">
+            <button class="amount" onclick="minus()">-</button>
+            <p id="number"></p>
+            <button class="amount" onclick="plus()">+</button>
+        </div>
+        
+        <button id="generate" onclick="generate()">Generate</button>
+        <h3 id="password">Your generated password/name</h3>
+
+        
+
+
+
+
+        <script>
+            let counter = 5; 
+            const pos = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,]
+            let counterEl = document.querySelector("#number")
+
+            // functions plus and minus 
+
+            function plus() {
+                counter++;
+                counterEl.innerHTML = counter;
+                console.log(counter);
+            }
+
+            function minus() {
+                if (counter <= 1) return;
+                counter = counter -1;
+                counterEl.innerHTML = counter;
+                console.log(counter);
+            }
+
+            
+            // function generate 
+            
+            function generateRandom() {
+                let resolve = "";
+                if (document.querySelector('#passwordcb').checked && document.querySelector('#randname').checked) {
+                    alert("You can´t do both!");
+                } else if (document.querySelector('#passwordcb').checked) {
+                    for (let i = 0; i < counter; i++) {
+                        const key = Math.floor(Math.random() * pos.length);
+                        resolve += pos[key];
+                    }
+                } else if (document.querySelector('#randname').checked) {
+                    for (let i = 0; i < counter; i++) {
+                        const name = Math.floor(Math.random() * 26);
+                        resolve += pos[name];
+                    }
+                } else {
+                    alert("You have to choose a box");
+                }
+
+                console.log(resolve);
+                return resolve;
+            }   
+
+
+            function generate() {
+                const password = generateRandom();
+                document.querySelector('#password').innerHTML = password;
+            }
+
+            counterEl.innerHTML = counter
+            
+
+
+            const el1 = document.querySelector('#passwordcb');
+            el1.addEventListener("click", unclick1);
+
+            const el2 = document.querySelector('#randname');
+            el2.addEventListener("click", unclick2);
+
+
+
+
+            function unclick1(){
+                document.querySelector('#randname').checked = false;
+            }
+
+            function unclick2(){
+                document.querySelector('#passwordcb').checked = false;
+            }
+
+        </script>
+    </body>
+</html>
